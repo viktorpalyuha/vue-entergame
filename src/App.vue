@@ -1,30 +1,53 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div class="container">
+    <the-header></the-header>
+    <main class="main">
+      <router-view></router-view>
+      <the-chat v-if="isChatShown"></the-chat>
+    </main>
+    <the-footer class="footer"></the-footer>
   </div>
-  <router-view />
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<script>
+import { useStore } from 'vuex';
+
+import TheHeader from './components/TheHeader';
+import TheFooter from './components/TheFooter';
+import TheChat from './views/chat/TheChat';
+
+export default {
+  setup() {
+    const store = useStore();
+
+    function isChatShown() {
+      return store.dispatch('isAuthenticated');
+    }
+
+    return { isChatShown };
+  },
+  components: {
+    TheHeader,
+    TheChat,
+    TheFooter
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  margin: 0 auto;
 }
 
-#nav {
-  padding: 30px;
+.main {
+  margin: 70px auto 20px auto;
+}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.footer {
+  margin: auto 0 0 0;
 }
 </style>

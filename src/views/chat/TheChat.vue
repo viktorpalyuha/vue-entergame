@@ -17,7 +17,9 @@
         v-for="message in messages"
         :key="message?.id"
         :class="[
-          message?.author?.full_name === userFullName ? 'left-msg' : 'right-msg'
+          message?.author?.full_name === userFullName
+            ? 'left-msg'
+            : 'right-msg',
         ]"
       >
         <div class="msg-bubble">
@@ -55,43 +57,43 @@
 </template>
 
 <script>
-import { computed, ref } from 'vue';
-import { useStore } from 'vuex';
+import { computed, ref } from "vue";
+import { useStore } from "vuex";
 
 export default {
   setup() {
     const store = useStore();
-    const writtenMessage = ref('');
+    const writtenMessage = ref("");
     const userFullName = computed(() => {
-      return store.getters['chat/userFullName'];
+      return store.getters["chat/userFullName"];
     });
     const messages = computed(() => {
-      return store.getters['chat/allMessages'];
+      return store.getters["chat/allMessages"];
     });
     const isChatShown = computed(() => {
-      return store.getters['chat/isChatShown'];
+      return store.getters["chat/isChatShown"];
     });
 
     async function onChatStarted() {
-      await store.dispatch('chat/establishSocketConnection');
-      store.dispatch('chat/requestUserFullName');
-      await store.dispatch('chat/getUserFullName');
-      store.dispatch('chat/requestAllMessages');
-      await store.dispatch('chat/getAllMessages');
-      store.dispatch('chat/receiveMessage');
+      await store.dispatch("chat/establishSocketConnection");
+      store.dispatch("chat/requestUserFullName");
+      await store.dispatch("chat/getUserFullName");
+      store.dispatch("chat/requestAllMessages");
+      await store.dispatch("chat/getAllMessages");
+      store.dispatch("chat/receiveMessage");
     }
 
     onChatStarted();
 
     function toggleChat() {
-      store.commit('chat/toggleChat');
+      store.commit("chat/toggleChat");
     }
 
     function sendMessage() {
       if (writtenMessage.value && this.writtenMessage.length <= 29) {
-        store.dispatch('chat/sendMessage', writtenMessage.value);
+        store.dispatch("chat/sendMessage", writtenMessage.value);
       }
-      writtenMessage.value = '';
+      writtenMessage.value = "";
     }
 
     return {
@@ -100,9 +102,9 @@ export default {
       writtenMessage,
       sendMessage,
       messages,
-      userFullName
+      userFullName,
     };
-  }
+  },
 };
 </script>
 <style lang="scss" scoped>

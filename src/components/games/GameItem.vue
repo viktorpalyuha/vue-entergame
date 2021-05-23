@@ -22,7 +22,7 @@
 
 <script>
 export default {
-  props: ['game']
+  props: ["game"],
 };
 </script>
 

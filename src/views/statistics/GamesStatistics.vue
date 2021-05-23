@@ -1,7 +1,14 @@
 <template>
   <section class="stats-container">
+    <add-space
+      path="/19968336/header-bid-tag-2"
+      :sizes="smallBannerSizes"
+      :mapping="smallBannerMapping"
+      divId="div-2"
+    ></add-space>
     <div class="category-stats">
       <h1>Category Statistics</h1>
+
       <table>
         <thead>
           <tr>
@@ -50,6 +57,9 @@
 import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
 
+import { smallBannerSizes } from '../../components/ads/adsSizes';
+import { smallBannerMapping } from '../../components/ads/adsMapping';
+
 export default {
   setup() {
     const store = useStore();
@@ -84,7 +94,7 @@ export default {
       return store.getters['statistics/priceStats'];
     });
 
-    return { categoryStats, priceStats };
+    return { categoryStats, priceStats, smallBannerSizes, smallBannerMapping };
   }
 };
 </script>

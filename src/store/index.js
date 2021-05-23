@@ -1,10 +1,10 @@
-import axios from 'axios';
-import jwt_decode from 'jwt-decode';
-import { createStore } from 'vuex';
+import axios from "axios";
+import jwt_decode from "jwt-decode";
+import { createStore } from "vuex";
 
-import gamesModule from './modules/games/index';
-import statisticsModule from './modules/statistics/index';
-import chatModule from './modules/chat/index';
+import gamesModule from "./modules/games/index";
+import statisticsModule from "./modules/statistics/index";
+import chatModule from "./modules/chat/index";
 
 export default createStore({
   state() {
@@ -14,10 +14,10 @@ export default createStore({
   actions: {
     async register(_, payload) {
       try {
-        await axios.post('/api/auth/register', {
+        await axios.post("/api/auth/register", {
           full_name: payload.fullName.value,
           email: payload.email.value,
-          password: payload.password.value
+          password: payload.password.value,
         });
       } catch (error) {
         console.log(error);
@@ -25,9 +25,9 @@ export default createStore({
     },
     async login(_, payload) {
       try {
-        const response = await axios.post('/api/auth/login', {
+        const response = await axios.post("/api/auth/login", {
           email: payload.email.value,
-          password: payload.password.value
+          password: payload.password.value,
         });
         return response.data;
       } catch (error) {
@@ -35,13 +35,13 @@ export default createStore({
       }
     },
     setToken(_, authResult) {
-      localStorage.setItem('JWT_token', authResult.JWT_token);
+      localStorage.setItem("JWT_token", authResult.JWT_token);
     },
     getToken() {
-      return localStorage.getItem('JWT_token');
+      return localStorage.getItem("JWT_token");
     },
     async isAuthenticated(context) {
-      const token = await context.dispatch('getToken');
+      const token = await context.dispatch("getToken");
 
       if (!token) {
         return false;
@@ -57,22 +57,22 @@ export default createStore({
     },
     initFacebook() {
       window.FB.init({
-        appId: '140451171241667',
+        appId: "140451171241667",
         status: false,
         cookie: false,
         xfbml: false,
-        version: 'v10.0'
+        version: "v10.0",
       });
     },
     async fbLogin(context) {
-      await context.dispatch('initFacebook');
+      await context.dispatch("initFacebook");
       return new Promise((resolve, reject) => {
         window.FB.login(
           (result) => {
             if (result.authResponse) {
               axios
                 .post(`/api/auth/facebook`, {
-                  access_token: result.authResponse.accessToken
+                  access_token: result.authResponse.accessToken,
                 })
                 .then((response) => {
                   if (!response.data.JWT_token) {
@@ -80,17 +80,17 @@ export default createStore({
                   }
                   return resolve(response.data);
                 })
-                .catch(() => reject(new Error('No token found')));
+                .catch(() => reject(new Error("No token found")));
             }
           },
-          { scope: 'public_profile, email' }
+          { scope: "public_profile, email" }
         );
       });
-    }
+    },
   },
   modules: {
     games: gamesModule,
     statistics: statisticsModule,
-    chat: chatModule
-  }
+    chat: chatModule,
+  },
 });

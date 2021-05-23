@@ -10,18 +10,18 @@
 </template>
 
 <script>
-import { useStore } from 'vuex';
+import { useStore } from "vuex";
 
-import TheHeader from './components/TheHeader';
-import TheFooter from './components/TheFooter';
-import TheChat from './views/chat/TheChat';
+import TheHeader from "./components/TheHeader";
+import TheFooter from "./components/TheFooter";
+import TheChat from "./views/chat/TheChat";
 
 export default {
   setup() {
     const store = useStore();
 
     function isChatShown() {
-      return store.dispatch('isAuthenticated');
+      return store.dispatch("isAuthenticated");
     }
 
     return { isChatShown };
@@ -29,8 +29,8 @@ export default {
   components: {
     TheHeader,
     TheChat,
-    TheFooter
-  }
+    TheFooter,
+  },
 };
 </script>
 

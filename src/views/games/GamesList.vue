@@ -6,6 +6,12 @@
         <game-item :game="game"></game-item>
       </div>
     </div>
+    <add-space
+      path="/19968336/header-bid-tag-1"
+      :sizes="billboardSizes"
+      :mapping="billboardMapping"
+      divId="div-1"
+    ></add-space>
   </div>
 </template>
 
@@ -15,6 +21,9 @@ import { computed } from 'vue';
 
 import GameItem from '../../components/games/GameItem';
 import TheSort from '../../components/sort/TheSort';
+
+import { billboardSizes } from '../../components/ads/adsSizes';
+import { billboardMapping } from '../../components/ads/adsMapping';
 
 export default {
   components: {
@@ -30,7 +39,7 @@ export default {
       return store.getters['games/games'];
     });
 
-    return { games };
+    return { games, billboardSizes, billboardMapping };
   }
 };
 </script>

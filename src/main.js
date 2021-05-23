@@ -4,12 +4,12 @@ import router from './router';
 import store from './store';
 import interceptorsSetup from './helpers/interceptors';
 import AddSpace from './components/ads/AddSpace';
-import adsSetup from './components/ads/prebidConfig';
+import prebidSetup from './helpers/ads/prebidConfig';
 
 import './styles/reset.css';
 
 interceptorsSetup();
-adsSetup();
+prebidSetup();
 
 createApp(App)
   .component('add-space', AddSpace)

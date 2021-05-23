@@ -39,7 +39,6 @@ export default () => {
     }
   ];
 
-  // ======== DO NOT EDIT BELOW THIS LINE =========== //
   var googletag = googletag || {};
   googletag.cmd = googletag.cmd || [];
   googletag.cmd.push(function () {

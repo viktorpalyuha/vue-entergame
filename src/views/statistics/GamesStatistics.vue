@@ -57,8 +57,8 @@
 import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
 
-import { smallBannerSizes } from '../../components/ads/adsSizes';
-import { smallBannerMapping } from '../../components/ads/adsMapping';
+import { smallBannerSizes } from '../../helpers/ads/adsSizes';
+import { smallBannerMapping } from '../../helpers/ads/adsMapping';
 
 export default {
   setup() {

@@ -22,8 +22,8 @@ import { computed } from 'vue';
 import GameItem from '../../components/games/GameItem';
 import TheSort from '../../components/sort/TheSort';
 
-import { billboardSizes } from '../../components/ads/adsSizes';
-import { billboardMapping } from '../../components/ads/adsMapping';
+import { billboardSizes } from '../../helpers/ads/adsSizes';
+import { billboardMapping } from '../../helpers/ads/adsMapping';
 
 export default {
   components: {

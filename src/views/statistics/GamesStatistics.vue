@@ -5,6 +5,7 @@
       :sizes="smallBannerSizes"
       :mapping="smallBannerMapping"
       divId="div-2"
+      :pbjsSlot="adSlot"
     ></add-space>
     <div class="category-stats">
       <h1>Category Statistics</h1>
@@ -59,10 +60,12 @@ import { useStore } from 'vuex';
 
 import { smallBannerSizes } from '../../helpers/ads/adsSizes';
 import { smallBannerMapping } from '../../helpers/ads/adsMapping';
+import { smallBanner } from '../../helpers/ads/adSlots';
 
 export default {
   setup() {
     const store = useStore();
+    const adSlot = smallBanner;
 
     const categories = ref([
       'Single-player',
@@ -94,7 +97,13 @@ export default {
       return store.getters['statistics/priceStats'];
     });
 
-    return { categoryStats, priceStats, smallBannerSizes, smallBannerMapping };
+    return {
+      categoryStats,
+      priceStats,
+      smallBannerSizes,
+      smallBannerMapping,
+      adSlot
+    };
   }
 };
 </script>

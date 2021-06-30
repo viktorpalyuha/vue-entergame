@@ -11,6 +11,7 @@
       :sizes="billboardSizes"
       :mapping="billboardMapping"
       divId="div-1"
+      :pbjsSlot="adSlot"
     ></add-space>
   </div>
 </template>
@@ -24,6 +25,7 @@ import TheSort from '../../components/sort/TheSort';
 
 import { billboardSizes } from '../../helpers/ads/adsSizes';
 import { billboardMapping } from '../../helpers/ads/adsMapping';
+import { billboard } from '../../helpers/ads/adSlots';
 
 export default {
   components: {
@@ -32,6 +34,7 @@ export default {
   },
   setup() {
     const store = useStore();
+    const adSlot = billboard;
 
     store.dispatch('games/loadGames');
 
@@ -39,7 +42,7 @@ export default {
       return store.getters['games/games'];
     });
 
-    return { games, billboardSizes, billboardMapping };
+    return { games, billboardSizes, billboardMapping, adSlot };
   }
 };
 </script>

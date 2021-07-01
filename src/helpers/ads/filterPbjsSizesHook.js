@@ -1,27 +1,33 @@
 export default (slot) => {
+  window.pbjs = window.pbjs || {};
   const currentWidth = window.innerWidth;
+  const sizeConfig = window.pbjs.getConfig()['sizeConfig'];
+
+  if (!sizeConfig) {
+    return slot;
+  }
 
   //Get all available size config breakpoints
-  const allBreakPointValues = window.pbjs
-    .getConfig()
-    ['sizeConfig'].map(
-      (breakpoint) => +breakpoint.mediaQuery.split(' ')[1].slice(0, -3)
-    )
+  const allBreakPointValues = sizeConfig
+    .map((breakpoint) => +breakpoint.mediaQuery.replace(/[^0-9]/g, ''))
     .reverse();
 
   //Get current breakpoint supported sizes
-  const currentBreakpointSizes = window.pbjs
-    .getConfig()
-    ['sizeConfig'].reverse()
-    .filter((breakpoint, index) => {
-      if (
+  const currentBreakpointSizes =
+    sizeConfig.reverse().filter((breakpoint, index) => {
+      if (!allBreakPointValues[index + 1]) {
+        return breakpoint;
+      } else if (
         currentWidth >= allBreakPointValues[index] &&
-        (currentWidth < allBreakPointValues[index + 1] ||
-          !allBreakPointValues[index + 1])
+        currentWidth < allBreakPointValues[index + 1]
       ) {
         return breakpoint;
       }
-    })[0].sizesSupported;
+    })[0].sizesSupported || false;
+
+  if (!currentBreakpointSizes) {
+    return slot;
+  }
 
   //Convert all sizes to the following format '728x90' for the convenient comparison later
   const currentBreakpointSizesInString = currentBreakpointSizes.map((size) =>
